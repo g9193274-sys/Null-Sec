@@ -1,18 +1,19 @@
 import os, time, sys, subprocess, threading
 
-# نظام الألوان المطور (الناري والذهبي لهيبة التنين)
+# نظام الألوان (VORTEX OMEGA COLORS)
 R, W, Y, G, B = '\033[1;31m', '\033[1;37m', '\033[1;33m', '\033[1;32m', '\033[1;34m'
 BOLD, RESET = '\033[1m', '\033[0m'
 
 def auto_setup():
-    """محرك الفحص الذاتي - تحميل كل المتطلبات تلقائياً لضمان العمل 100%"""
-    print(f"{Y}[!] Initializing Omega Engine...{W}")
-    # تنصيب الأدوات الحقيقية في الكالي
+    """تجهيز الأسلحة تلقائياً لضمان عمل الأداة 100%"""
+    os.system('clear')
+    print(f"{Y}[!] VORTEX ENGINE: Installing War Suite...{W}")
+    # تنصيب الأدوات الأساسية في النظام
     tools = ['sqlmap', 'nmap', 'hydra', 'metasploit-framework', 'curl', 'wget', 'unzip', 'hping3']
     for tool in tools:
         subprocess.run(f"which {tool} > /dev/null || sudo apt install {tool} -y", shell=True, capture_output=True)
     
-    # تنصيب مكتبات البايثون الضرورية
+    # تنصيب مكتبات البايثون
     for lib in ['qrcode', 'pillow', 'requests']:
         subprocess.run(f"pip install {lib} --quiet --break-system-packages", shell=True, capture_output=True)
 
@@ -30,6 +31,8 @@ def omega_banner():
               {Y} -##################\\\\/      \\//##################-
               {R}  _################# /        \\ #################_
               {R}   ^################/          \\################^
+              {R}     ^##########^                ^##########^
+              {R}          ^####^                  ^####^
     {W}____________________________________________________________________
     {Y}   [ SYSTEM: {R}NULLSEC OMEGA {Y}] [ OPERATOR: {R}VORTEX {Y}] [ V: {G}26.0 {Y}]
     {W}____________________________________________________________________
@@ -38,7 +41,7 @@ def omega_banner():
     """)
 
 def vortex_wiki():
-    """غرفة المعرفة المزدوجة (عربي/إنجليزي) - شرح كامل وشامل"""
+    """غرفة المعرفة المزدوجة (عربي/إنجليزي)"""
     omega_banner()
     print(f"{Y}[#] VORTEX KNOWLEDGE BASE - موسوعة الثغرات العالمية{W}\n")
     wiki_data = [
@@ -54,7 +57,7 @@ def vortex_wiki():
     for i, (name, en, ar) in enumerate(wiki_data, 1):
         print(f"{R}[{i}] {Y}{name}: {W}{en}")
         print(f"    {G}الشرح بالعربي: {W}{ar}\n")
-    input(f"{Y}[#] Press Enter to return...{W}")
+    input(f"{Y}[#] Press Enter to return to Command Center...{W}")
 
 def phishing_hub():
     """مركز الصفحات المزورة - يتضمن Konami ID لبيس"""
@@ -62,13 +65,13 @@ def phishing_hub():
     print(f"{Y}[#] PHISHING HUB - مركز اصطياد الحسابات{W}")
     print(f"{R}[1] Instagram Login     {R}[4] PUBG Mobile (UC)")
     print(f"{R}[2] Facebook Login      {R}[5] Roblox Login")
-    print(f"{R}[3] KONAMI ID (PES/eFootball) {G}<- UPDATED!")
+    print(f"{R}[3] KONAMI ID (PES/eFootball) {G}<- NEW!")
     choice = input(f"\n{R}OMEGA@VORTEX:~$ {W}")
     if choice == '3':
-        print(f"{G}[+] Activating Konami Phishing Module (PES 2026 Edition)...")
+        print(f"{G}[+] Activating Konami Phishing Module (PES 2026)...")
         time.sleep(2)
         print(f"{Y}[!] Link Generated: https://konami-verify-vortex.serveo.net")
-        print(f"{Y}[!] QR Code generated for the link. Wait for victim...")
+        print(f"{R}[!] Waiting for victim credentials...")
 
 def main():
     auto_setup()
@@ -88,8 +91,8 @@ def main():
         if choice == '10': vortex_wiki()
         elif choice == '12': phishing_hub()
         elif choice == '0': 
-            print(f"{R}\n[!] SYSTEM SHUTDOWN. REMEMBER: DONT TRUST ANYONE.{RESET}"); break
-        else: print(f"{R}[!] Starting Module {choice}..."); time.sleep(1)
+            print(f"{R}\n[!] SYSTEM SHUTDOWN. DONT TRUST ANYONE.{RESET}"); break
+        else: print(f"{R}[!] Running Module {choice}..."); time.sleep(1)
 
 if __name__ == "__main__":
     main()
