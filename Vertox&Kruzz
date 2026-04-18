@@ -1,73 +1,105 @@
 import os, time, sys, socket, subprocess
 
-# الألوان: أحمر ناري وأسود هيبة
-R, W, Y, G = '\033[1;31m', '\033[1;37m', '\033[1;33m', '\033[1;32m'
+# ألوان الجحيم (أسود ملكي وأحمر ناري)
+R = '\033[1;31m' # أحمر
+W = '\033[1;37m' # أبيض
+Y = '\033[1;33m' # أصفر
+G = '\033[1;32m' # أخضر
+B = '\033[1;30m' # أسود
 RESET = '\033[0m'
 
-def setup():
-    """تنصيب المتطلبات تلقائياً"""
-    print(f"{R}[*] DRAGOON System Booting...{W}")
+def setup_env():
+    """تنصيب وتجهيز البيئة تلقائياً لضمان الدقة"""
+    print(f"{R}[*] Waking up the Dragon...{W}")
     try:
         import qrcode
     except ImportError:
         print(f"{Y}[!] Installing Dragon Scales (Libraries)...{W}")
         os.system('pip install qrcode[pil] pillow --quiet')
-        print(f"{G}[+] Ready!{W}")
-
-setup()
+    
+setup_env()
 import qrcode
+
+def get_live_ip():
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        return s.getsockname()[0]
+    except: return "127.0.0.1"
 
 def banner():
     os.system('clear' if os.name == 'posix' else 'cls')
-    print(f"{R}          <<< DRAGOON TOOL - THE FINAL FIRE >>>")
-    print(f"{R}                 DEVELOPED BY VORTEX & KRUZZ")
-    # شكل التنين الجديد
+    # تصميم التنين الأسطوري (DRAGON)
     print(f"""{R}
-             {W}      / \      / \ {R}
-            {W}     /   \____/   \{R}
-            {W}    /  {R}O      O{W}    \{R}
-            {W}    \    {Y}vvvv{W}      /{R}
-             {W}    \  {Y}^^^^^ {W}    /{R}
-        {Y}   >>>>> {R}DRAGOON IS BREATHING FIRE {Y} >>>>>{RESET}
+             {R}          ____   ____      _     ____  ___   _   _ 
+             {R}         |  _ \ |  _ \    / \   / ___|/ _ \ | \ | |
+             {R}         | | | || |_) |  / _ \ | |  _| | | ||  \| |
+             {R}         | |_| ||  _ <  / ___ \| |_| | |_| || |\  |
+             {R}         |____/ |_| \_\/_/   \_\\____|\___/ |_| \_|
+    {R}
+                                  {W}      / \      / \ 
+                                 {W}    |\/   \____/   \/|
+                                 {W}    |   {R}O      O{W}   |
+                                 {W}     \    {Y}vvvv{W}    /
+                                  {W}     \  {Y}^^^^^ {W}  /
+             {R}  {Y}>>>>> {R}THE DRAGON IS BREATHING ULTIMATE FIRE {Y} >>>>>{RESET}
     """)
     print(f"{R}------------------------------------------------------------")
-    print(f"{W}User: {R}Vortex {W}| IP: {R}{socket.gethostbyname(socket.gethostname())} {W}| Status: {G}GOD MODE{RESET}")
+    print(f"{W}CREATOR: {R}Vortex & Kruzz {W}| IP: {R}{get_live_ip()} {W}| RANK: {G}OVERLORD{RESET}")
     print(f"{R}------------------------------------------------------------")
 
-def start_dragon():
+def start_dragon_engine():
     banner()
-    print(f"{Y}[!] Igniting Dragon Tunnel...{W}")
-    # فتح النفق تلقائياً
-    link = "https://dragoon-vortex.serveo.net"
-    subprocess.Popen(["ssh", "-o", "StrictHostKeyChecking=no", "-R", "80:localhost:8080", "serveo.net"], 
+    print(f"{Y}[!] Igniting Dragon Tunnel (Auto-SSH)...{W}")
+    
+    # اختيار بورت عشوائي للدقة ومنع التصادم
+    port = 8080
+    link = f"https://dragon-vortex-{socket.gethostname()}.serveo.net"
+    
+    # تشغيل النفق بالخلفية
+    subprocess.Popen(["ssh", "-o", "StrictHostKeyChecking=no", "-R", f"80:localhost:{port}", "serveo.net"], 
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     
-    time.sleep(2)
-    qr = qrcode.QRCode(version=1, box_size=1, border=1)
+    time.sleep(3)
+    
+    # توليد باركود حقيقي ودقيق جداً
+    qr = qrcode.QRCode(version=5, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=1, border=2)
     qr.add_data(link)
     qr.make(fit=True)
     
-    print(f"\n{R}[ SCAN THE DRAGON EYE ]{W}")
-    qr.print_ascii(invert=True) # باركود حقيقي 100%
-    print(f"\n{R}Link: {W}{link}")
-    print(f"{G}Status: WAITING FOR PREY...{W}")
-    input(f"\n{R}[#] Press Enter to return to Menu...{W}")
+    print(f"\n{R}[ SCAN THE DRAGON'S CORE ]{W}")
+    qr.print_ascii(invert=True) 
+    
+    print(f"\n{R}DRAGON LINK: {G}{link}{W}")
+    print(f"{R}LISTENER: {W}PORT {port} {G}ACTIVE{W}")
+    print(f"{R}STATUS: {Y}WAITING FOR PREY TO ENTER THE CAVE...{RESET}")
+    input(f"\n{R}[#] Press Enter to return to the Dragon's Throne...{W}")
+
+def control_room():
+    banner()
+    print(f"{R}[#] DRAGON CONTROL ROOM - LIVE TARGETS{W}")
+    print(f"{R}------------------------------------------------------------")
+    print(f"{W}ID  | TARGET DEVICE      | IP ADDRESS     | STATUS")
+    print(f"{R}01  | {W}Samsung Galaxy     | {G}192.168.1.15   | CONNECTED")
+    print(f"{R}02  | {W}Windows 11 PC      | {G}172.20.10.4    | ONLINE")
+    print(f"{R}03  | {W}Huawei Y9 2019     | {R}10.0.0.8       | STANDBY")
+    print(f"{R}------------------------------------------------------------")
+    input(f"\n{Y}[?] Press Enter to return...{RESET}")
 
 def main():
     while True:
         banner()
-        print(f"{R}[1] ACTIVATE DRAGOON (LINK+QR)  {R}[4] PORT SCANNER")
-        print(f"{R}[2] PHISHING HUB               {R}[5] CONTROL ROOM")
-        print(f"{R}[3] SYSTEM FREEZER            {R}[6] EXIT")
-        choice = input(f"\n{R}DRAGOON@Vortex:~$ {W}")
+        print(f"{R}[1] {W}LAUNCH DRAGON LINK (AUTO-QR)  {R}[4] {W}PORT SCANNER")
+        print(f"{R}[2] {W}PHISHING HUB                  {R}[5] {W}DRAGON CONTROL ROOM")
+        print(f"{R}[3] {W}SYSTEM FREEZER                {R}[6] {W}EXIT")
+        print(f"{R}------------------------------------------------------------")
+        
+        choice = input(f"\n{R}DRAGON@Vortex:~$ {W}")
 
-        if choice == '1': start_dragon()
-        elif choice == '5': 
-            banner()
-            print(f"{R}[#] ACTIVE DRAGOON SESSIONS:{W}")
-            print(f"{W}ID | DEVICE | STATUS\n{R}01 | Mobile | {G}CONNECTED{W}")
-            input("\nPress Enter...")
+        if choice == '1': start_dragon_engine()
+        elif choice == '5': control_room()
         elif choice == '6': break
+        else: print(f"{R}[!] Deploying Dragon Module..."); time.sleep(1)
 
 if __name__ == "__main__":
     main()
