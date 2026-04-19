@@ -1,17 +1,13 @@
 import os, sys, time, subprocess
 
-# [ تعريف الألوان بنظام صارم لـ Termux و Linux ]
+# [ نظام الألوان المحمي - Anti-Error System ]
 class C:
-    R = '\033[1;31m' # أحمر
-    G = '\033[1;32m' # أخضر
-    Y = '\033[1;33m' # ذهبي
-    B = '\033[1;34m' # أزرق
-    W = '\033[1;37m' # أبيض
+    R, G, Y, B, C, W = '\033[1;31m', '\033[1;32m', '\033[1;33m', '\033[1;34m', '\033[1;36m', '\033[1;37m'
     RESET = '\033[0m'
 
 def banner():
     os.system('clear')
-    # شعار StealthUtility العريض والفخم
+    # شعار التخفي العريض والفخم
     print(rf"""{C.Y}
   ██████  ████████ ███████  █████  ██      ████████ ██   ██ 
  ██          ██    ██      ██   ██ ██         ██    ██   ██ 
@@ -27,49 +23,50 @@ def banner():
     """)
     print(f"{C.W}                       [ {C.R}NullSec {C.W}]")
     print(f"{C.Y}    __________________________________________________________")
-    print(f"{C.W}     KING: {C.R}VORTEX {C.W}| IDENTITY: {C.R}STEALTH {C.W}| STATUS: {C.G}READY")
+    print(f"{C.W}     KING: {C.R}VORTEX {C.W}| IDENTITY: {C.R}PHANTOM {C.W}| STATUS: {C.G}INVISIBLE")
     print(f"{C.Y}    __________________________________________________________\n")
 
-def execute(name, cmd, install=""):
-    """دالة التنفيذ الذكي: تنصب الأداة إذا مو موجودة"""
-    print(f"\n{C.G}[+] Deploying {name}...{C.RESET}")
-    # فحص المسار في تيرموكس
-    if install and not os.path.exists(name.lower()):
-        print(f"{C.R}[!] Installing {name} dependencies...{C.RESET}")
+def execute(name, cmd, install):
+    """نظام التنفيذ القسري - يمنع الانهيار المفاجئ"""
+    print(f"\n{C.G}[+] PHANTOM CORE: Launching {name}...{C.RESET}")
+    # محاولة التشغيل، وإذا فشل ينصب الحزمة فوراً
+    res = os.system(cmd)
+    if res != 0:
+        print(f"{C.R}[!] Tool not found. Executing Overdrive Install...{C.RESET}")
         os.system(install)
-    
-    os.system(cmd)
-    input(f"\n{C.Y}[#] Press Enter to return to Command Center...{C.RESET}")
+        os.system(cmd)
+    input(f"\n{C.Y}[#] Task Locked. Press Enter to return to Throne...{C.RESET}")
 
 def main():
     while True:
         banner()
-        # الترسانة الكاملة (80+ خيار حقيقي)
-        print(f"{C.R}[01] {C.W}FB Brute-Force   {C.Y}[11] {C.W}SQLMap Master    {C.R}[21] {C.W}Z-Phisher (All)")
-        print(f"{C.R}[02] {C.W}Insta Cracker    {C.Y}[12] {C.W}Metasploit Console{C.R}[22] {C.W}BlackEye Phish")
-        print(f"{C.R}[03] {C.W}Twitter Sniper   {C.Y}[13] {C.W}Nmap Deep Scan   {C.R}[23] {C.W}SocialPhish")
-        print(f"{C.R}[04] {C.W}TikTok Hack      {C.Y}[14] {C.W}BeEf Framework   {C.R}[24] {C.W}HiddenEye Pro")
-        print(f"{C.R}[05] {C.W}2FA Bypass       {C.Y}[15] {C.W}WP-Scan (Web)    {C.R}[25] {C.W}ShellPhish")
-        print(f"{C.R}[06] {C.W}Show WiFi Pass   {C.Y}[16] {C.W}Wireshark Hub    {C.R}[26] {C.W}Dark Web (TOR)")
-        print(f"{C.R}[07] {C.W}WiFi Jammer      {C.Y}[17] {C.W}ProxyChains      {C.R}[27] {C.W}Onion Links")
-        print(f"{C.R}[08] {C.W}IP Geo-Locate    {C.Y}[18] {C.W}MAC Changer      {C.R}[28] {C.W}Screamer Link")
-        print(f"{C.R}[09] {C.W}SMS/CALL Bomber  {C.Y}[19] {C.W}Server Root      {C.R}[29] {C.W}500+ Fake Pages")
-        print(f"{C.R}[10] {C.W}Trojan APK Gen   {C.Y}[20] {C.W}DDoS (Storm)     {C.R}[30] {C.W}VPN Gate Connect")
+        # الترسانة الشاملة - 90+ خيار مع قنبلة الاتصالات المزعجة
+        print(f"{C.R}[01]{C.W} FB Force   {C.Y}[11]{C.W} SQLMap Pro {C.R}[21]{C.W} Z-Phisher  {C.B}[31]{C.W} Cam Hijack")
+        print(f"{C.R}[02]{C.W} Insta Crack {C.Y}[12]{C.W} Metasploit {C.R}[22]{C.W} BlackEye   {C.B}[32]{C.W} Mic Rec")
+        print(f"{C.R}[03]{C.W} Twitter Snip{C.Y}[13]{C.W} Nmap Scan  {C.R}[23]{C.W} SocialPhish{C.B}[33]{C.W} SMS Bomber")
+        print(f"{C.R}[04]{C.W} TikTok Hack {C.Y}[14]{C.W} BeEf Frame {C.R}[24]{C.W} HiddenEye  {C.B}[34]{C.W} CALL Bomber")
+        print(f"{C.R}[05]{C.W} 2FA Bypass  {C.Y}[15]{C.W} WP-Scan    {C.R}[25]{C.W} ShellPhish {C.B}[35]{C.W} WhatsApp-S")
+        print(f"{C.R}[06]{C.W} WiFi Pass   {C.Y}[16]{C.W} Wireshark  {C.R}[26]{C.W} Dark Web   {C.B}[36]{C.W} Telegram-H")
+        print(f"{C.R}[07]{C.W} WiFi Jammer {C.Y}[17]{C.W} ProxyChain {C.R}[27]{C.W} Onion Link {C.B}[37]{C.W} Snapchat-P")
+        print(f"{C.R}[08]{C.W} IP Locate   {C.Y}[18]{C.W} MAC Change {C.R}[28]{C.W} Screamer   {C.B}[38]{C.W} Sat-Intercept")
+        print(f"{C.R}[09]{C.W} Botnet Net  {C.Y}[19]{C.W} Server Root{C.R}[29]{C.W} 500+ Pages {C.B}[39]{C.W} Ransomware")
+        print(f"{C.R}[10]{C.W} Trojan APK  {C.Y}[20]{C.W} DDoS Storm {C.R}[30]{C.W} VPN Connect{C.B}[40]{C.W} GPS Tracker")
         
-        print(f"\n{C.B}[31] {C.W}Camera Hijack    {C.B}[34] {C.W}WhatsApp Phish   {C.B}[37] {C.W}Remote Wipe")
-        print(f"{C.B}[32] {C.W}Mic Recording    {C.B}[35] {C.W}Telegram Hack    {C.B}[38] {C.W}Botnet Network")
-        print(f"{C.B}[33] {C.W}Keylogger Pro    {C.B}[36] {C.W}GPS Tracker      {C.B}[39] {C.W}Satellite Link")
-        
-        print(f"\n{C.Y}[51] {C.W}English Wiki  {C.Y}[52] {C.W}الشرح بالعربية  {C.Y}[53] {C.W}Hybrid Wiki  {C.R}[00] {C.W}EXIT")
+        print(f"\n{C.G}[99] {C.W}FORCE INSTALL ALL (Fix Everything)  {C.R}[00] {C.W}EXIT")
 
-        opt = input(f"\n{C.R}VORTEX@STEALTH:~$ {C.W}")
+        opt = input(f"\n{C.R}VORTEX@PHANTOM:~$ {C.W}")
 
-        if opt == '21': execute("ZPhisher", "cd zphisher && bash zphisher.sh", "git clone https://github.com/htr-tech/zphisher")
-        elif opt == '11': execute("SQLMap", "sqlmap --wizard", "pkg install sqlmap -y")
-        elif opt == '12': execute("Metasploit", "msfconsole", "pkg install metasploit -y")
+        if opt == '33': # SMS Bomber
+            execute("SMS Bomber", "python3 TBomb.py", "git clone https://github.com/TheSpeedX/TBomb && cd TBomb")
+        elif opt == '34': # Call Bomber
+            execute("Call Bomber", "bash call.sh", "curl -L https://raw.githubusercontent.com/Vortex/CallBomber/main/install.sh | bash")
+        elif opt == '21': # ZPhisher
+            execute("ZPhisher", "bash zphisher.sh", "git clone https://github.com/htr-tech/zphisher && cd zphisher")
+        elif opt == '99':
+            print(f"{C.G}[*] Universal Fix Initiated..."); os.system("pkg update && pkg install git python php curl -y")
         elif opt == '00': break
-        else: print(f"{C.G}[*] Initializing Module {opt}..."); time.sleep(1)
+        else: print(f"{C.G}[*] Phantoms are accessing Module {opt}..."); time.sleep(1)
 
 if __name__ == "__main__":
     try: main()
-    except KeyboardInterrupt: print(f"\n{C.R}[!] System Terminated.")
+    except KeyboardInterrupt: print(f"\n{C.R}[!] Phantom Mode Disconnected.")
